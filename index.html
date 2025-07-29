@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OLX Clone Improved</title>
+  <link rel="stylesheet" href="style.css">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+</head>
+<body>
+
+<header>
+  <div style="display: flex; gap: 20px; align-items: center;" class="logo">
+    <h3 style="color: var(--olx-blue); font-weight: bold;">
+      <svg height="40" viewBox="0 0 36.289 20.768" alt="Logo"><path d="M18.9 20.77V0h4.93v20.77zM0 10.39a8.56 8.56 0 1 1 8.56 8.56A8.56 8.56 0 0 1 0 10.4zm5.97-.01a2.6 2.6 0 1 0 2.6-2.6 2.6 2.6 0 0 0-2.6 2.6zm27 5.2l-1.88-1.87-1.87 1.88H25.9V12.3l1.9-1.9-1.9-1.89V5.18h3.27l1.92 1.92 1.93-1.92h3.27v3.33l-1.9 1.9 1.9 1.9v3.27z"></path></svg>
+    </h3>
+    <div style="display: flex; align-items: center; gap: 10px;" class="mainimg">
+      <img src="https://www.olx.com.pk/assets/iconMotors.6bf280165e43e55b173d0a53551e2bfb.png" alt="">
+      <h4>Motors</h4>
+      <img src="https://www.olx.com.pk/assets/iconProperty.d09c6d2e3621f900c17c9e8330a1a37b.png" alt="">
+      <h4>Property</h4>
+    </div>
+  </div>
+  <div class="search-bar">
+    <select class="form-select w-auto" id="citySelect">
+      <option value="Karachi">Karachi</option>
+      <option value="Lahore">Lahore</option>
+      <option value="Islamabad">Islamabad</option>
+      <option value="Faisalabad">Faisalabad</option>
+    </select>
+    <input type="text" class="form-control" placeholder="Search products...">
+    <button class="btn btn-dark">Search</button>
+  </div>
+  
+  <!-- Login Button -->
+  <button id="loginBtn" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+
+  <!-- User Dropdown -->
+  <div class="dropdown" id="userDropdown" style="display: none;">
+    <button class="btn btn-outline-dark d-flex align-items-center gap-2 dropdown-toggle" type="button" data-bs-toggle="dropdown">
+      <img id="userAvatar" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Avatar" 
+           style="width:32px;height:32px;border-radius:50%;object-fit:cover;">
+      <span id="userNameDisplay"></span>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end">
+      <li class="dropdown-item-text text-muted small" id="userEmailDisplay"></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><button class="dropdown-item" id="logoutBtn">Logout</button></li>
+    </ul>
+  </div>
+</header>
+
+<div id="cards"></div>
+
+<!-- Product Details Modal (Smaller & Clean) -->
+<div class="modal fade" id="productDetailsModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-md">
+    <div class="modal-content" style="border-radius:12px; overflow:hidden;">
+      <div class="modal-header" style="background:#f8f9fa;">
+        <h5 id="productTitle" class="modal-title fw-bold"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center mb-3">
+          <img id="productImage" src="" class="img-fluid rounded" alt="Product Image" style="max-height:250px; object-fit:contain;">
+        </div>
+        <h4 id="productPrice" class="text-success fw-bold"></h4>
+        <p id="productDescription" class="text-muted small"></p>
+      </div>
+      <div class="modal-footer" style="background:#f8f9fa;">
+        <button class="btn btn-success">Add to Cart</button>
+        <button class="btn btn-primary">Buy Now</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header"><h5 class="modal-title">User Authentication</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs mb-3" id="authTabs">
+          <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#loginTab">Login</button></li>
+          <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#registerTab">Register</button></li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane fade show active" id="loginTab">
+            <form id="loginForm">
+              <div class="mb-3"><label>Email</label><input type="email" id="loginEmail" class="form-control" required></div>
+              <div class="mb-3"><label>Password</label><input type="password" id="loginPassword" class="form-control" required></div>
+              <button type="submit" class="btn btn-primary w-100">Login</button>
+            </form>
+          </div>
+          <div class="tab-pane fade" id="registerTab">
+            <form id="registerForm">
+              <div class="mb-3"><label>Name</label><input type="text" id="regName" class="form-control" required></div>
+              <div class="mb-3"><label>Email</label><input type="email" id="regEmail" class="form-control" required></div>
+              <div class="mb-3"><label>Password</label><input type="password" id="regPassword" class="form-control" required></div>
+              <button type="submit" class="btn btn-success w-100">Register</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="index.js"></script>
+</body>
+</html>
